@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <h1 id="app">
+        {{msg}}
+        <div >
+            {{div}}
+        </div>
+        <div v-text='div'>
+        </div>
+        <div v-html='div2'>
+
+
+        </div>
+    </h1>
+
+    <script>
+        let vm = new Vue({
+            el:'#app,#div',
+            data:{
+                msg:'这是一个标题',
+                div:'这是一个div',
+                div2:'<a style="color:red;">这是一个a</a>'
+            }
+        })
+        
+    </script>
+</body>
+</html>

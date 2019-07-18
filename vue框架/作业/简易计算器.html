@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Document</title>
+    <script type='text/javascript' src='js/vue.js'></script>
+</head>
+<body>
+    <div id='app'>
+        <input type="text" v-model='inp1'>
+        <select name="" id="" v-model='select' @change='cal'>
+            <option value="">--请选择计算方式--</option> 
+            <option value="+">-- 加 --</option> 
+            <option value="-">-- 减 --</option> 
+            <option value="*">-- 乘 --</option> 
+            <option value="/">-- 除 --</option> 
+        </select> 
+        <input type="text" v-model='inp2'>
+        <span>=</span>
+        <input type="text" v-model='result'>
+    </div>
+    <script type='text/javascript'>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                // msg: 'Hello Vue'
+                inp1:'',
+                inp2:'',
+                select:'',
+                result:''
+            },
+            methods: {
+                cal(){
+                    if(this.select == '+'){
+                        this.result = parseInt(this.inp1)+parseInt(this.inp2)
+                    }
+                    if(this.select == '-'){
+                        this.result = parseInt(this.inp1)-parseInt(this.inp2)
+                    }
+                    if(this.select == '*'){
+                        this.result = parseInt(this.inp1)*parseInt(this.inp2)
+                    }
+                    if(this.select == '/'){
+                        this.result = parseInt(this.inp1)/parseInt(this.inp2)
+                    }
+                    
+                }
+            }
+        });
+    </script>
+</body>
+</html>

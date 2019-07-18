@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Document</title>
+    <script type='text/javascript' src='js/vue.js'></script>
+</head>
+<body>
+    <div id='app' @click='aa'>
+        {{msg}}
+        <br>
+        <input type="button" value="点击" @click='aa'>
+        <input type="button" value="划过" @mouseover='bb'>
+    </div>
+    <script type='text/javascript'>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 0
+            },
+            methods:{
+                aa:function(){
+                    this.msg++
+                },
+                bb:function(){
+                    this.msg--
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Document</title>
+    <script type='text/javascript' src='js/vue.js'></script>
+</head>
+<body>
+    <div id='app' @click='aaa'>
+        aaaaaaa
+        <div @click.stop='bbb'>bbbbbbbbbb</div>
+        <a href="www.baidu.com" @click.prevent.stop=''>cccccccc</a>
+    </div>
+    <script type='text/javascript'>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'Hello Vue'
+            },
+            methods:{
+                aaa(){
+                    console.log("aaaaaaaaa");
+                    
+                },
+                bbb(){
+                    console.log("bbbbbbbbbbb");
+                    
+                }
+            },
+        });
+    </script>
+</body>
+</html>

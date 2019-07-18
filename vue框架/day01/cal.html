@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Document</title>
+    <script type='text/javascript' src='js/vue.js'></script>
+</head>
+<body>
+    <div id='app'>
+        num1:<input type="text" v-model='a'><br>
+        num2:<input type="text" v-model='b'>
+        <input type="button" value="计算" @click='cal'><br>
+        计算结果：<span>{{result}}</span>
+    </div>
+    <script type='text/javascript'>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'Hello Vue',
+                a:'',
+                b:'',
+                result:''
+            },
+            methods:{
+                cal(){
+                    this.result = parseInt(this.a)+parseInt(this.b)
+                }
+            }
+        });
+    </script>
+</body>
+</html>

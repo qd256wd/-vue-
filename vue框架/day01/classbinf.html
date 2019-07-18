@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <style>
+      .active {
+        width: 100px;
+        height: 100px;
+        border: 1px solid orange;
+      }
+      .bb {
+        background-color: #006699;
+        color: #fff;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" :class="{active:isactive}" @click="handle">
+      {{ msg }}
+      <br />
+      <input
+        type="button"
+        value="点击"
+        :class="[isactive1,isactive?isactive2:'']"
+      />
+    </div>
+    <script type="text/javascript">
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "Hello Vue",
+          isactive: true,
+          isactive1: "aa",
+          isactive2: "bb"
+        },
+        methods: {
+          handle() {
+            this.isactive = !this.isactive;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
