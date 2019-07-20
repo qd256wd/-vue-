@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Document</title>
+    <script type='text/javascript' src='js/vue.js'></script>
+</head>
+<body>
+    <div id='app'>
+        {{msg}}
+        <p> {{msg | aaa('小白，第一次学')}}</p>
+        <p> {{msg | bbb('小菜鸟，第一次学')}}</p>
+    </div>
+    <script type='text/javascript'>
+        Vue.filter('aaa',function(str,qq){
+          return  str.replace('Hello','hi'+qq)
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'Hello Vue'
+            },
+            methods: {
+            },
+            filters:{
+                bbb(str,yy){
+                    return  str.replace('Hello','hi'+yy)
+                }
+            }
+        });
+    </script>
+</body>
+</html>

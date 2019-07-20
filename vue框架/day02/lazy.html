@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Document</title>
+    <script type='text/javascript' src='js/vue.js'></script>
+</head>
+<body>
+    <div id='app'>
+       <form action="">
+        username:<input type="text" v-model.lazy='username' @change='change' @input='ipt'>
+        password:<input type="password" v-model.lazy='password'>
+        <input type="submit" value="提交">
+       </form>
+    </div>
+    <script type='text/javascript'>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'Hello Vue',
+                username:'',
+                password:''
+            },
+            methods: {
+                change(){
+                    if(this.username.length<7){
+                        alert('err')
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
