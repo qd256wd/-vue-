@@ -8,29 +8,29 @@
 </head>
 <body>
     <div id='app'>
-        {{msg}}
-        <p> {{msg | aaa('小白，第一次学')}}</p>
-        <p> {{msg | bbb('小菜鸟，第一次学')}}</p>
+        num1:<input type="text" name="" id="" v-model="f1"></br>
+        num2:<input type="text" name="" id="" v-model="f2"><br>
+        总和：{{aa}}
     </div>
     <script type='text/javascript'>
-        Vue.filter('aaa',function(str,qq){
-          return  str.replace('Hello','hi'+qq)
-        })
         var vm = new Vue({
             el: '#app',
             data: {
-                msg: 'Hello Vue'
+                msg: 'Hello Vue',
+                f1:1,
+                f2:1,
+                f:0
             },
-            methods: {
+            methods:{
+                qq(){}
             },
-            filters:{
-                bbb(str,yy){
-                    return  str.replace('Hello','hi'+yy)
-                }
+            computed:{
+                aa(){
+                    return this.f=parseInt(this.f1)+parseInt(this.f2);
+                },
+                bb(){}
             }
         });
     </script>
 </body>
 </html>
-<!--  -->
-   <!--  -->

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <style>
+        
+        input{
+            width: 20px;
+            text-align: center;
+
+        }
+        .ipt{
+            width: 35px;
+            text-align: center;
+        }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      {{ msg }}
+
+      <ul>
+        <li v-for="(aa,i) in arr" :key="aa.id">
+          <input type="checkbox" id="" v-model="aa.chk" />
+          <span>品牌：{{ aa.name }}</span>
+          <span>单价是：{{ aa.price }}元</span>
+          数量是：<input type="button" value="-" @click='sub(aa.id)'>
+          <input type="text" :value="aa.num" class="ipt">
+          <input type="button" value="+" @click='add(aa.id)'>
+
+          <div>{{ aa.chk }}</div>
+        </li>
+      </ul>
+      <!-- <p>总价是：{{ total }}元</p> -->
+      <p>总价是：{{ sumpic }}元</p>
+    </div>
+    <script type="text/javascript">
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "Hello Vue",
+          total: 0,
+          arr: [
+            {
+              id: 1,
+              name: "nick",
+              price: 50,
+              num: 2,
+              chk: false
+            },
+            {
+              id: 2,
+              name: "adi",
+              price: 60,
+              num: 3,
+              chk: false
+            },
+            {
+              id: 3,
+              name: "anta",
+              price: 70,
+              num: 4,
+              chk: false
+            },
+            {
+              id: 4,
+              name: "step",
+              price: 80,
+              num: 5,
+              chk: false
+            },
+            {
+              id: 5,
+              name: "361",
+              price: 90,
+              num: 6,
+              chk: false
+            }
+          ]
+        },
+        methods: {
+          add(id){
+            this.arr[id - 1].num++
+          },
+          sub(id){
+            if(this.arr[id - 1].num <= 1){
+                this.arr[id - 1].num =1
+            }else{
+                this.arr[id - 1].num--
+            }
+          }
+        },
+        computed:{
+            sumpic(){
+                this.total = 0;
+                this.arr.forEach(item => {
+                    if (item.chk) {
+                    this.total += Number(item.price) * Number(item.num);
+                    }
+                })
+                return this.total
+            }
+        }
+      });
+    </script>
+  </body>
+</html>
