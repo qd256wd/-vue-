@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Document</title>
+    <script type='text/javascript' src='js/vue.js'></script>
+</head>
+<body>
+    <div id='app'>
+        {{msg}}
+        <tom></tom>
+        <jerry></jerry>
+      
+    </div>
+    <script type='text/javascript'>
+        var hub = new Vue();
+        Vue.component('tom',{
+            data(){
+                return {
+                    num:0
+                }
+            },
+            template:`
+            <div>
+            这是兄弟组件内的tom组件: {{num}}<br>
+            <button @click="handel">点击更改jerry的值</button>
+            </div>
+            `,
+           methods:{
+                handel(){
+                   hub.$emit('jerry',1) 
+                }
+           },
+           mounted:function(){
+            hub.$on('tom',(val) => {
+                this.num += val
+            })
+           }
+        })
+        Vue.component('jerry',{
+            data(){
+                return {
+                    num:0
+                }
+            },
+            template:`
+            <div>
+            这是兄弟组件内的jerry组件 :  {{num}}<br>
+            <button @click="handel">点击更改tom的值</button>
+            </div>
+            `,
+           methods:{
+                handel(){
+                   hub.$emit('tom',2) 
+                }
+           },
+           mounted:function(){
+            hub.$on('jerry',(val) => {
+                this.num += val
+            })
+           }
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '这是父组件'
+            },
+            methods: {
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Document</title>
+    <script type='text/javascript' src='js/vue.js'></script>
+</head>
+<body>
+    <div id='app'>
+        {{msg}}
+        <son></son>
+        <son></son>
+    </div>
+    <script type='text/javascript'>
+        var submit ={
+            dat(){
+                return {
+                    msg:'这是一个自定义组件'
+                }
+            },
+            template:'<div style="backgroundColor:yellow">这是一个自定义的儿子组件</div>'
+        }
+
+        var son={
+            dat(){
+                return {
+                    msg:'这是一个自定义组件'
+                }
+            },
+            template:'<div style="backgroundColor:red">这是一个自定义的父级组件 <submit></submit></div>',
+            components:{
+                submit:submit
+            }
+
+        }
+
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'Hello Vue'
+            },
+            methods: {
+            },
+            components:{
+                son
+            }
+        });
+    </script>
+</body>
+</html>

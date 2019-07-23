@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Document</title>
+    <script type='text/javascript' src='js/vue.js'></script>
+</head>
+<body>
+    <div id='app'>
+        {{msg}}
+      <tab>  
+            <template slot="header">
+            <p>标体信息1</p>
+            <p>标体信息2</p>
+            </template>
+            <template  >
+                <p>文章内容3</p>
+                <p>文章内容4</p>
+            </template>
+                <p>文章内容</p>
+                <p>文章内容1</p>
+                <p>文章内容1</p>
+                <p>文章内容1</p>
+            <template slot="footer">
+                <p>底部信息</p>
+            </template>
+    </tab>
+    </div>
+    <script type='text/javascript'>
+        Vue.component('tab',{
+            template:`
+            <div>
+                <header>
+                    <slot name='header'></slot>
+                </header>
+                <main>
+                    <slot ></slot>
+                </main>
+                <footer>
+                    <slot name='footer'></slot>
+                </footer>
+            </div>
+            `
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'Hello Vue'
+            },
+            methods: {
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="js/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- {{ msg }} -->
+      <son title='来自父组件的值'></son>
+      <son :title='ptitle' content='content'></son>
+    </div>
+    <script type="text/javascript">
+      var son = {
+        props:['title','content'],
+            data() {
+              return {
+                msg: "这是一个自定义儿子组件"
+              };
+            },
+            template:
+              '<div style="backgroundColor:red" >{{msg +"================="+title+"========="+content}}</div>',
+            methods: {
+             
+            },
+            
+        };
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "Hello Vue",
+          ptitle:'这是父元素传过来啊的值'
+        },
+        methods: {},
+        components:{
+            son:son
+        }
+      });
+    </script>
+  </body>
+</html>

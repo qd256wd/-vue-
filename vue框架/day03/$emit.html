@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Document</title>
+    <script type='text/javascript' src='js/vue.js'></script>
+</head>
+<body>
+    <div id='app'>
+        <!-- {{msg}} -->
+        <son @total="aaa"></son>
+    </div>
+    <script type='text/javascript'>
+         var son={
+            dat(){
+                return {
+                    msg:'这是一个自定义组件'
+                }
+            },
+            template:'<div style="backgroundColor:red" @click="fff" >这是一个自定义的父级组件</div>',
+            methods: {
+                fff(){
+                    this.$emit("total")
+                }, 
+            },
+
+        }
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'Hello Vue'
+            },
+            methods: {
+                aaa(){
+                    console.log(1111);       
+                },
+            },
+            components:{
+                son:son
+            }
+        });
+    </script>
+</body>
+</html>
