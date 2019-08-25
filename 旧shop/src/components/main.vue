@@ -82,7 +82,7 @@
       <!-- 搜索板块  end-->
       <!-- 表格板块 start -->
       <div class="table-box">
-        <a-table bordered :dataSource="dataSource" :columns="columns">
+        <a-table bordered :dataSource="dataSource" :columns="columnsTableList">
           <template slot="name" slot-scope="text, record">
             <editable-cell :text="text" @change="onCellChange(record.key, 'name', $event)" />
           </template>
@@ -98,6 +98,9 @@
             <p>{{text}}</p>
             <a-button type="primary" size="small">查询</a-button>
           </template>
+          <template slot="datasString" slot-scope="text, record">
+            <p v-for="(item,i) in text" :key="i">{{item}}</p>
+          </template>
         </a-table>
       </div>
       <!-- 表格板块 end -->
@@ -105,7 +108,7 @@
     <!-- 主体内容区域结束--------------- -->
 
     <!-- 自定义信息展示模态框 start -->
-    <a-modal title="选择需要添加的搜索框" v-model="visible" @ok="handleOk" style="width:800px; ">
+    <a-modal title="选择需要添加的搜索框" v-model="visible" @ok="handleOk">
       <div>
         <div :style="{ borderBottom: '1px solid #E9E9E9' }">
           <a-checkbox
@@ -116,14 +119,8 @@
         </div>
         <br />
         <a-checkbox-group :options="plainOptions" v-model="columnsData" @change="onChangelist" />
+        <br />
       </div>
-      <!-- <ul class="ul-style">
-        <template v-for="(item,i) in columns">
-          <li>
-            <a-checkbox :key="i"  @change="onChange">{{item.title}}</a-checkbox>
-          </li>
-        </template>
-      </ul>-->
     </a-modal>
     <!-- 自定义信息展示模态框 end -->
     <!-- 历史记录模态框 -->
@@ -136,8 +133,13 @@
     <a-modal title="关键词搜索" v-model="visible3" @ok="handleOk3">
       <div class="magin-bottom">
         <span class="input-span">添加数量</span>
-        <a-input placeholder="请输入" style="width: 200px" class="input-style" />
-        <a-button type="primary">添加关键词</a-button>
+        <a-input-number
+          placeholder="请输入"
+          style="width: 200px"
+          class="input-style"
+          v-model="handleAddNum"
+        />
+        <a-button type="primary" @click="handleAdd">添加关键词</a-button>
       </div>
       <a-table bordered :dataSource="dataSource1" :columns="columns1">
         <template slot="name" slot-scope="text, record">
@@ -166,21 +168,24 @@ export default {
   props: {},
   data() {
     return {
-      indeterminate: true,
-      checkAll: false,
+      handleAddNum: "",
+      indeterminate: false,
+      checkAll: true,
       visible: false,
       visible2: false,
       visible3: false,
-      elementListTitle:[],
+      elementListTitle: [],
       plainOptions: [],
       columnsData: [],
       showHistorydata: {},
       dataSource1: [
         {
+          key: "0",
           name: "Edward King 0",
           age: "32"
         },
         {
+          key: "1",
           name: "Edward King 0",
           age: "32"
         }
@@ -190,17 +195,41 @@ export default {
           key: "0",
           name: "Edward King 0",
           age: "32",
+          station: "美国",
           address: "London, Park Lane no. 0",
           operation: "dadsa",
-          ASIN: "ASIN"
+          ASIN: "ASIN",
+          datas: ["2019-08-05", "2019-08-05", "2019-08-05"],
+          expand: "推广测评",
+          offline: "线下测评",
+          allAppraisal: "总测评",
+          discuss: "评论",
+          advertising: "广告",
+          manifestation: "表现",
+          condition: "情况",
+          antistop: "关键词",
+          state: "状态",
+          repertoryNum: "500"
         },
         {
           key: "1",
           name: "Edward King 1",
           age: "32",
+          station: "美国",
           address: "London, Park Lane no. 1",
           operation: "dadsa",
-          ASIN: "ASIN"
+          ASIN: "ASIN",
+          datas: ["2019-08-05 00：00:00", "2019-08-05", "2019-08-05 00：00:00"],
+          expand: "推广测评",
+          offline: "线下测评",
+          allAppraisal: "总测评",
+          discuss: "评论",
+          advertising: "广告",
+          manifestation: "表现",
+          condition: "情况",
+          antistop: "关键词",
+          state: "状态",
+          repertoryNum: "500"
         }
       ],
       count: 2,
@@ -216,7 +245,8 @@ export default {
           scopedSlots: { customRender: "operation1" }
         }
       ],
-      columnsTable:[],
+      columnsTable: [],
+      columnsTableList: [],
       columns: [
         {
           title: "sku",
@@ -228,7 +258,7 @@ export default {
         },
         {
           title: "站点",
-          dataIndex: "age"
+          dataIndex: "station"
         },
         {
           title: "人员",
@@ -240,54 +270,55 @@ export default {
         },
         {
           title: "时间信息",
-          dataIndex: "operation"
+          dataIndex: "datas",
+          scopedSlots: { customRender: "datasString" }
         },
         {
           title: "推广测评",
-          dataIndex: "operation"
+          dataIndex: "expand"
         },
         {
           title: "线下导入测评",
-          dataIndex: "operation"
+          dataIndex: "offline"
         },
         {
           title: "总测评",
-          dataIndex: "operation",
+          dataIndex: "allAppraisal",
           scopedSlots: { customRender: "operation" }
         },
         {
           title: "评论情况",
-          dataIndex: "operation",
+          dataIndex: "discuss",
           scopedSlots: { customRender: "operation" }
         },
         {
           title: "广告费用",
-          dataIndex: "operation",
+          dataIndex: "advertising",
           scopedSlots: { customRender: "operation" }
         },
         {
           title: "产品表现",
-          dataIndex: "operation",
+          dataIndex: "manifestation",
           scopedSlots: { customRender: "operation" }
         },
         {
           title: "销售情况",
-          dataIndex: "operation",
+          dataIndex: "condition",
           scopedSlots: { customRender: "operation" }
         },
         {
           title: "关键词搜索",
-          dataIndex: "operation",
+          dataIndex: "antistop",
           scopedSlots: { customRender: "edit" }
         },
         {
           title: "产品状态",
-          dataIndex: "operation",
+          dataIndex: "state",
           scopedSlots: { customRender: "operation" }
         },
         {
           title: "库存",
-          dataIndex: "operation",
+          dataIndex: "repertoryNum",
           scopedSlots: { customRender: "query" }
         }
       ]
@@ -309,34 +340,33 @@ export default {
       this.visible3 = false;
     },
     onCellChange(key, dataIndex, value) {
-      const dataSource = [...this.dataSource];
-      const target = dataSource.find(item => item.key === key);
+      const dataSource1 = [...this.dataSource1];
+      const target = dataSource1.find(item => item.key === key);
       if (target) {
         target[dataIndex] = value;
-        this.dataSource = dataSource;
+        this.dataSource1 = dataSource1;
       }
     },
     onDelete(key) {
-      const dataSource = [...this.dataSource];
-      this.dataSource = dataSource.filter(item => item.key !== key);
+      const dataSource1 = [...this.dataSource1];
+      this.dataSource1 = dataSource1.filter(item => item.key !== key);
     },
     handleAdd() {
-      const { count, dataSource } = this;
-      const newData = {
-        key: count,
-        name: `Edward King ${count}`,
-        age: 32,
-        address: `London, Park Lane no. ${count}`
-      };
-      this.dataSource = [...dataSource, newData];
-      this.count = count + 1;
+      for (let i = 0; i < this.handleAddNum; i++) {
+        const { count, dataSource1 } = this;
+        const newData = {
+          key: count,
+          name: `Edward King ${count}`,
+          age: 32,
+          address: `London, Park Lane no. ${count}`
+        };
+        this.dataSource1 = [...dataSource1, newData];
+        this.count = count + 1;
+      }
     },
     showHistory(text, record) {
-      console.log(text, 111111);
-      console.log(record, 111111);
       this.visible2 = true;
       this.showHistorydata = record;
-      console.log(this.showHistorydata, 333333333333);
     },
     showEdit() {
       this.visible3 = true;
@@ -347,19 +377,16 @@ export default {
     },
     columnsDatas() {
       this.columns.forEach(element => {
-        console.log(element);
         this.columnsData.push(element.title);
       });
-      console.log(this.columnsData);
       this.plainOptions = this.columnsData;
-      console.log(this.plainOptions);
+      this.columnsTableList = this.columns;
     },
     onChangelist(columnsData) {
       this.indeterminate =
         !!columnsData.length && columnsData.length < this.plainOptions.length;
       this.checkAll = columnsData.length === this.plainOptions.length;
-      console.log(this.columnsData,1111111111111);
-    //   this.ChangelistTable()
+      this.ChangelistTable();
     },
     onCheckAllChange(e) {
       Object.assign(this, {
@@ -367,28 +394,17 @@ export default {
         indeterminate: false,
         checkAll: e.target.checked
       });
-      console.log(this.columnsData,1111111111111);
-    //   this.ChangelistTable()
+      this.ChangelistTable();
     },
-    // ChangelistTable(){
-    //     this.elementListTitle=[]
-    //     this.columns.forEach(element => {
-    //         if(this.columnsData.indexOf(element.title) != -1) {
-    //             this.columnsTable.forEach(elementList => {
-    //                 this.elementListTitle.push(elementList.title)
-    //             })
-    //             console.log(this.elementListTitle,2222222222);
-                
-    //             if(this.elementListTitle.indexOf(element.title) == -1){
-    //                 this.columnsTable.push(element)
-    //             }
-    //         }
-    //     })
-    //     console.log(this.columnsTable);
-    //     console.log(this.columns);
-    //     this.columns = this.columnsTable
-
-    // }
+    ChangelistTable() {
+      this.columnsTable = [];
+      this.columns.forEach(element => {
+        if (this.columnsData.indexOf(element.title) != -1) {
+          this.columnsTable.push(element);
+        }
+      });
+      this.columnsTableList = this.columnsTable;
+    }
   },
   created() {},
   mounted() {
@@ -463,8 +479,9 @@ export default {
   line-height: 38px;
 }
 
-.table-box tr th{
-  padding: 5px !important; 
+.table-box tr th,
+.table-box tr td {
+  padding: 5px !important;
   text-align: center !important;
 }
 </style>

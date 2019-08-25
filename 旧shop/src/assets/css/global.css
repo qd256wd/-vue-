@@ -1,0 +1,10 @@
+.ql-editor {
+    min-height: 300px;
+}
+.showNeedMsgText {
+    width: 100%;
+    margin-top: 15px;
+  }
+  .showNeedMsgText  img {
+      max-width: 100%;
+  }
