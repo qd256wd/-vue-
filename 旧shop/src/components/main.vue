@@ -14,9 +14,9 @@
           <a-select-option value="Jiangsu">abc</a-select-option>
         </a-select>
         <span class="input-span">认领时间</span>
-        <a-range-picker class="input-style" />
+        <a-range-picker class="input-style" style="width:300px;" />
         <span class="input-span">FBA入库时间</span>
-        <a-range-picker />
+        <a-range-picker  style="width:300px;"/>
       </div>
       <div class="input-box">
         <span class="input-span">站点</span>
@@ -404,9 +404,11 @@ export default {
         }
       });
       this.columnsTableList = this.columnsTable;
-    }
+    },
+    
   },
-  created() {},
+  created() {
+  },
   mounted() {
     this.columnsDatas();
   }

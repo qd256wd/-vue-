@@ -124,7 +124,9 @@
         </div>
       </a-form>
       <h3>预期结果</h3>
-      <quill-editor v-model="goods_introduce2"></quill-editor>
+      <quill-editor v-model="goods_introduce2">
+        <button>提交</button>
+      </quill-editor>
       <p>附件： (支持的文件类型： png jpg gif doc docx xls xlsx pdf ppt zip ,单个文件最大支持50MB)</p>
     </a-modal>
 
@@ -138,32 +140,30 @@
       width="870px"
     >
       <a-divider orientation="left">需求项目</a-divider>
-      <a-tag color="green">{{ showNeedMsgText.age ? showNeedMsgText.age.project:'' }} </a-tag>
+      <a-tag color="green">{{ showNeedMsgText.age ? showNeedMsgText.age.project:'' }}</a-tag>
       <a-divider orientation="left">需求标题</a-divider>
-      <a-tag color="blue">{{ showNeedMsgText.age ? showNeedMsgText.age.headline:'' }} </a-tag>
+      <a-tag color="blue">{{ showNeedMsgText.age ? showNeedMsgText.age.headline:'' }}</a-tag>
       <a-divider orientation="left">内容信息</a-divider>
-      <div v-html='showNeedMsgText.goods_introduce_vlaues' class="showNeedMsgText"></div>
+      <div v-html="showNeedMsgText.goods_introduce_vlaues" class="showNeedMsgText ql-editor"></div>
     </a-modal>
-
   </div>
 </template>
 
 <script>
-import { log } from "util";
-import { win32 } from "path";
+// import "../static/js/image-paste.min.js";
 export default {
   components: {},
 
   data() {
     return {
-      editorOption3: {
-		   placeholder: '',
-		   theme: 'snow',  // or 'bubble'
-		   modules: {
-		     imageResize: {}, // 图片调整大小的关键这在这里可以 其他的参数因人而异，
-		   }
-		 },
-      showNeedMsgText:{},
+      //   editorOption3: {
+      //    placeholder: '',
+      //    theme: 'snow',  // or 'bubble'
+      //    modules: {
+      //      ImagePaste: {}
+      //    }
+      //  },
+      showNeedMsgText: {},
       form: this.$form.createForm(this),
       formvalue: {},
       visible: false,
@@ -289,19 +289,17 @@ export default {
       console.log(record, 2222);
     },
     showNeedMsg(text) {
-      this.visible2=true
-      this.showNeedMsgText = text
-      console.log(this.showNeedMsgText,123456789);
-      
+      this.visible2 = true;
+      this.showNeedMsgText = text;
+      console.log(this.showNeedMsgText, 123456789);
     },
-    handleOk2(){
-      this.visible2=false
+    handleOk2() {
+      this.visible2 = false;
     }
   },
   created() {},
   mounted() {},
-  updated() {
-  },
+  updated() {}
 };
 </script>
 <style lang="less" scoped>
@@ -365,5 +363,4 @@ input {
 .table-box {
   margin-top: 15px;
 }
-
 </style>
